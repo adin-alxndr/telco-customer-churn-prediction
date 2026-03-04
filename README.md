@@ -20,6 +20,8 @@ By identifying customers who are likely to churn, the company can take proactive
 **Rows:** 7,043  
 **Columns:** 21  
 **Target Variable:** `Churn` (Yes = churn, No = not churn)
+**Accessed using**: kagglehub  
+The dataset is downloaded programmatically, so no CSV file is stored in this repository.
 
 Each row represents a customer, and each column represents customer attributes such as:
 - Demographics (gender, senior citizen, partner, dependents)
@@ -58,7 +60,7 @@ Each row represents a customer, and each column represents customer attributes s
 - pandas, numpy  
 - matplotlib, seaborn  
 - scikit-learn  
-- Kaggle API  
+- Kaggle API (kagglehub)
 - VSCode 
 - GitHub  
 
