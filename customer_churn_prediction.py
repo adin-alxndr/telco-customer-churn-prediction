@@ -78,7 +78,7 @@ df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce')
 df.isnull().sum()
 
 # Fill missing values with median
-df['TotalCharges'].fillna(df['TotalCharges'].median(), inplace=True)
+df['TotalCharges'] = df['TotalCharges'].fillna(df['TotalCharges'].median())
 
 # Drop customerID (not useful for prediction)
 df.drop('customerID', axis=1, inplace=True)
@@ -97,12 +97,22 @@ sns.boxplot(x='Churn', y='MonthlyCharges', data=df)
 plt.title("Monthly Charges vs Churn")
 plt.show()
 
-sns.countplot(x='Contract', hue='Churn', data=df)
-plt.title("Contract Type vs Churn")
+contract_churn = df.groupby('Contract')['Churn'].value_counts(normalize=True).unstack()
+contract_churn.plot(kind='bar', stacked=True, colormap='coolwarm', figsize=(8,5))
+plt.title("Churn Rate by Contract Type (%)")
+plt.ylabel("Proportion")
+plt.xticks(rotation=0)
+plt.legend(title='Churn', labels=['No', 'Yes'])
+plt.tight_layout()
 plt.show()
 
-sns.countplot(x='InternetService', hue='Churn', data=df)
-plt.title("Internet Service vs Churn")
+internet_churn = df.groupby('InternetService')['Churn'].value_counts(normalize=True).unstack()
+internet_churn.plot(kind='bar', stacked=True, colormap='coolwarm', figsize=(8,5))
+plt.title("Churn Rate by Internet Service (%)")
+plt.ylabel("Proportion")
+plt.xticks(rotation=0)
+plt.legend(title='Churn', labels=['No', 'Yes'])
+plt.tight_layout()
 plt.show()
 
 """### 7. FEATURE ENGINEERING & PREPROCESSING"""
@@ -119,8 +129,6 @@ preprocessor = ColumnTransformer(
         ('num', StandardScaler(), num_features)
     ]
 )
-
-df.head()
 
 """### 8. TRAIN TEST SPLIT"""
 
@@ -222,22 +230,29 @@ feat_imp.head(10).plot(kind='barh')
 plt.title("Top 10 Important Features")
 plt.show()
 
-feat_imp.head(10).plot(kind='barh')
-plt.title("Top 10 Important Features")
-plt.show()
-
 """### 15. CONCLUSION
 
 **Conclusion**
 
-Logistic Regression outperforms Random Forest in predicting churn with higher accuracy (0.80) and better recall for churned customers.
+Both models were evaluated using CV AUC, accuracy, precision, recall, and F1-score.
 
-The most influential factors for churn are TotalCharges, MonthlyCharges, tenure, and Contract type.
+Logistic Regression achieves a higher CV AUC (0.8453) and churn recall (0.78),
+making it better at capturing at-risk customers — at the cost of more false positives.
 
-Customers who are new, pay higher monthly charges, and have month-to-month contracts are more likely to churn.
+Random Forest achieves higher accuracy (0.78) and precision (0.62),
+making it more conservative and reliable when targeting high-confidence churners.
 
-Business Recommendation:
+The most influential features for churn are TotalCharges, tenure, MonthlyCharges,
+and Contract_Month-to-month, based on Random Forest feature importances.
+
+Customers who are newer, pay higher monthly charges, and are on month-to-month
+contracts are most likely to churn. Fiber optic users and those without online
+security or tech support also show elevated churn risk.
+
+Business Recommendations:
 - Encourage long-term contracts for month-to-month customers
-- Offer discounts to high monthly charge users
-- Promote security and tech support services to reduce churn risk
+- Offer discounts or bundled packages to high monthly charge users
+- Build onboarding programs targeting customers in their first 3–6 months
+- Promote OnlineSecurity and TechSupport add-ons to reduce churn risk
+- Investigate service quality issues for Fiber optic users
 """
