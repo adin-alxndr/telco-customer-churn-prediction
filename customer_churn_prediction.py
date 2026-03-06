@@ -234,25 +234,25 @@ plt.show()
 
 **Conclusion**
 
-Both models were evaluated using CV AUC, accuracy, precision, recall, and F1-score.
+Both Logistic Regression and Random Forest models were evaluated using cross-validation AUC, accuracy, precision, recall, and F1-score.
 
-Logistic Regression achieves a higher CV AUC (0.8453) and churn recall (0.78),
-making it better at capturing at-risk customers — at the cost of more false positives.
+---
 
-Random Forest achieves higher accuracy (0.78) and precision (0.62),
-making it more conservative and reliable when targeting high-confidence churners.
+**Key Findings**
+- Logistic Regression achieved a higher ROC-AUC score and stronger recall for churn prediction, making it more effective at identifying customers who are likely to churn. However, this comes at the cost of slightly more false positives.
 
-The most influential features for churn are TotalCharges, tenure, MonthlyCharges,
-and Contract_Month-to-month, based on Random Forest feature importances.
+- Random Forest achieved higher overall accuracy and precision, making it more conservative and reliable when targeting high-confidence churn customers.
 
-Customers who are newer, pay higher monthly charges, and are on month-to-month
-contracts are most likely to churn. Fiber optic users and those without online
-security or tech support also show elevated churn risk.
+---
 
-Business Recommendations:
-- Encourage long-term contracts for month-to-month customers
-- Offer discounts or bundled packages to high monthly charge users
-- Build onboarding programs targeting customers in their first 3–6 months
-- Promote OnlineSecurity and TechSupport add-ons to reduce churn risk
-- Investigate service quality issues for Fiber optic users
+Feature importance analysis shows that the most influential variables for churn are **TotalCharges, tenure, MonthlyCharges, and Contract type (Month-to-month)**. Customers who are newer, pay higher monthly fees, and are on month-to-month contracts are significantly more likely to churn. Additionally, fiber optic users and customers without **OnlineSecurity** or **TechSupport** services show higher churn risk.
+
+---
+
+**Business Recommendations**
+- Encourage long-term contracts for month-to-month customers.
+- Offer discounts or bundled plans to customers with high monthly charges.
+- Develop onboarding programs for customers in their first **3–6 months**, when churn risk is highest.
+- Promote **OnlineSecurity** and **TechSupport** add-ons to improve customer retention.
+- Investigate potential service quality issues related to **fiber optic users**, as they show elevated churn rates.
 """
