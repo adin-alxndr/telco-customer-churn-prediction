@@ -29,7 +29,7 @@ Customer churn is one of the most critical metrics for telecom companies. This p
 ```
 telco-churn-prediction/
 │
-├── Customer Churn Prediction.ipynb   # Main notebook
+├── customer_churn_prediction.py      # Main notebook
 ├── images/                           # Saved visualization outputs
 │   ├── churn_distribution.png
 │   ├── correlation_matrix.png
@@ -210,8 +210,8 @@ plt.show()
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/telco-churn-prediction.git
-   cd telco-churn-prediction
+   git clone https://github.com/adin-alxndr/telco-customer-churn-prediction.git
+   cd telco-customer-churn-prediction
    ```
 
 2. **Install dependencies**
